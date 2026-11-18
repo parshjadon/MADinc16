@@ -80,6 +80,30 @@ Future<RoundController> completed(
 }
 
 void main() {
+  test(
+    'retrieving a different historical ID clears the previous round review',
+    () async {
+      final store = MemoryTestStore();
+      final round = await completed(store);
+      await round.submit();
+      store.records['user-A/historical-id'] = ServerAttempt(
+        'user-A',
+        'historical-id',
+        5,
+        DateTime.utc(2026),
+      );
+      await round.retrieve('historical-id');
+      expect(round.phase, RoundPhase.cloudVerified);
+      expect(round.verified!.correctCount, 5);
+      expect(
+        round.questions,
+        isEmpty,
+        reason:
+            'Old questions must never be attached to a different cloud result.',
+      );
+      expect(round.selections, isEmpty);
+    },
+  );
   test('T04 selection guard and repeated taps keep score at 2/5', () async {
     final store = MemoryTestStore();
     final round = RoundController(Questions(), store);

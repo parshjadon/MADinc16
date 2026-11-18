@@ -242,6 +242,9 @@ class RoundController extends ChangeNotifier {
     _generation++;
     roundId = id;
     _frozen = null;
+    questions = const [];
+    selections = [];
+    index = 0;
     verified = null;
     writeAcknowledged = false;
     reconciliationRequired = true;
