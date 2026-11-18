@@ -1,0 +1,78 @@
+[
+  {
+    "testId": "T06",
+    "projectId": "inc06-f77f6",
+    "database": "(default)",
+    "uidSuffix": "IJfBG2",
+    "roundSuffix": "qDeGUO",
+    "fields": {
+      "categoryId": 17,
+      "correctCount": 2,
+      "submittedAt": "2026-11-18T01:56:33.958Z",
+      "questionCount": 5,
+      "schemaVersion": 1,
+      "variant": "B"
+    },
+    "createTime": "2026-11-18T01:56:34.009920Z",
+    "updateTime": "2026-11-18T01:56:34.009920Z",
+    "observedAt": "2026-11-18T03:10:53.739Z",
+    "source": "Independent read-only Firestore REST API export using project-owner CLI session. Client rule tests do not use this authority."
+  },
+  {
+    "testId": "T09",
+    "projectId": "inc06-f77f6",
+    "database": "(default)",
+    "uidSuffix": "IJfBG2",
+    "roundSuffix": "taXr8f",
+    "fields": {
+      "questionCount": 5,
+      "schemaVersion": 1,
+      "submittedAt": "2026-11-18T01:56:34.670Z",
+      "variant": "B",
+      "categoryId": 17,
+      "correctCount": 3
+    },
+    "createTime": "2026-11-18T01:56:34.729865Z",
+    "updateTime": "2026-11-18T01:56:34.729865Z",
+    "observedAt": "2026-11-18T03:10:53.739Z",
+    "source": "Independent read-only Firestore REST API export using project-owner CLI session. Client rule tests do not use this authority."
+  },
+  {
+    "testId": "G01",
+    "projectId": "inc06-f77f6",
+    "database": "(default)",
+    "uidSuffix": "IJfBG2",
+    "roundSuffix": "ZLnLDN",
+    "fields": {
+      "categoryId": 17,
+      "submittedAt": "2026-11-18T01:56:41.713Z",
+      "variant": "B",
+      "questionCount": 5,
+      "correctCount": 4,
+      "schemaVersion": 1
+    },
+    "createTime": "2026-11-18T01:56:41.758034Z",
+    "updateTime": "2026-11-18T01:56:41.758034Z",
+    "observedAt": "2026-11-18T03:10:53.739Z",
+    "source": "Independent read-only Firestore REST API export using project-owner CLI session. Client rule tests do not use this authority."
+  },
+  {
+    "testId": "G02",
+    "projectId": "inc06-f77f6",
+    "database": "(default)",
+    "uidSuffix": "IJfBG2",
+    "roundSuffix": "deH39i",
+    "fields": {
+      "correctCount": 5,
+      "variant": "B",
+      "schemaVersion": 1,
+      "questionCount": 5,
+      "submittedAt": "2026-11-18T01:56:43.621Z",
+      "categoryId": 17
+    },
+    "createTime": "2026-11-18T01:56:43.662588Z",
+    "updateTime": "2026-11-18T01:56:43.662588Z",
+    "observedAt": "2026-11-18T03:10:53.739Z",
+    "source": "Independent read-only Firestore REST API export using project-owner CLI session. Client rule tests do not use this authority."
+  }
+]

@@ -1,0 +1,31 @@
+Resolving dependencies...
+Downloading packages...
+  cupertino_icons 1.0.9 (2.0.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+Got dependencies!
+5 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/MAD/inc16/test/round_controller_test.dart
+00:00 +0: retrieving a different historical ID clears the previous round review
+00:00 +0 -1: retrieving a different historical ID clears the previous round review [E]
+  Expected: empty
+    Actual: [
+              Instance of 'ScienceQuestion',
+              Instance of 'ScienceQuestion',
+              Instance of 'ScienceQuestion',
+              Instance of 'ScienceQuestion',
+              Instance of 'ScienceQuestion'
+            ]
+  Old questions must never be attached to a different cloud result.
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test\round_controller_test.dart 91:5                main.<fn>
+  
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  C:/MAD/inc16/test/round_controller_test.dart: retrieving a different historical ID clears the previous round review

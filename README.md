@@ -2,6 +2,8 @@
 
 Graduate submission by **Parsh Jadon**, November 17, 2026.
 
+Download the signed APK and graduate Word report from the [submission release](https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-final). The report contains the test records and actual app screenshots. A separate Firebase-console screenshot remains outstanding; an independent read-only Firestore record export is included in `evidence/server-console-export.json`.
+
 Flutter Android science quiz backed by real Firebase Authentication and Cloud Firestore. Exactly five medium Science & Nature boolean questions are requested from Open Trivia Database, URL-component decoded, validated, answered once, and reviewed. Completed scores use an immutable create-once transaction and an exact server-only confirmation read.
 
 ## Run

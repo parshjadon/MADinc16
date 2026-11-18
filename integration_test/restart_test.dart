@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:science_signal/firebase_options.dart';
@@ -33,6 +34,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.enterText(find.byKey(const Key('retrieveId')), id);
       FocusManager.instance.primaryFocus?.unfocus();
+    await SystemChannels.textInput.invokeMethod<void>('TextInput.hide');
+    await tester.pumpAndSettle(const Duration(milliseconds: 500));
       await tester.ensureVisible(find.byKey(const Key('retrieve')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('retrieve')));
@@ -47,7 +50,13 @@ void main() {
           await tester.pump();
         }
       });
-      expect(find.byKey(const Key('serverProof')), findsOneWidget);
+    if (find.byKey(const Key('cloudMessage')).evaluate().isNotEmpty) {
+      debugPrint('RESTART-OBSERVATION ${tester.widget<Text>(find.byKey(const Key('cloudMessage'))).data}');
+    }
+    await binding.convertFlutterSurfaceToImage();
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('T07-retrieval-observation');
+    expect(find.byKey(const Key('serverProof')), findsOneWidget);
       expect(find.byKey(const Key('questionPrompt')), findsNothing);
       expect(find.byKey(const Key('score')), findsNothing);
       expect(
@@ -55,8 +64,6 @@ void main() {
         contains('Server score: 2/5'),
       );
       await tester.ensureVisible(find.byKey(const Key('serverProof')));
-      await tester.pumpAndSettle();
-      await binding.convertFlutterSurfaceToImage();
       await tester.pumpAndSettle();
       await binding.takeScreenshot('T07-restarted-server-retrieval');
       debugPrint(

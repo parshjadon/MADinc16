@@ -1,0 +1,33 @@
+Resolving dependencies...
+Downloading packages...
+  cupertino_icons 1.0.9 (2.0.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+Got dependencies!
+5 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/MAD/inc16/test/quiz_test.dart
+00:00 +0: C:/MAD/inc16/test/quiz_test.dart: T02 percent decoding and exact Class B endpoint
+00:00 +1: C:/MAD/inc16/test/quiz_test.dart: T03 rejects nonzero code and four or six questions
+00:00 +2: C:/MAD/inc16/test/quiz_test.dart: T03 rejects malformed percent escapes and malformed UTF8
+00:00 +3: C:/MAD/inc16/test/quiz_test.dart: T03 rejects wrong category, metadata, empty prompt and invalid answers
+00:00 +4: C:/MAD/inc16/test/quiz_test.dart: HTTP 200 alone is not playable data
+00:00 +5: C:/MAD/inc16/test/quiz_test.dart: T03 manual retries cannot issue another HTTP request before five seconds
+00:00 +6: C:/MAD/inc16/test/quiz_test.dart: HTTP failures have readable errors
+00:00 +7: C:/MAD/inc16/test/round_controller_test.dart: retrieving a different historical ID clears the previous round review
+00:00 +8: C:/MAD/inc16/test/round_controller_test.dart: T04 selection guard and repeated taps keep score at 2/5
+00:00 +9: C:/MAD/inc16/test/round_controller_test.dart: T05 replay creates new ID and resets answers after verification
+00:00 +10: C:/MAD/inc16/test/round_controller_test.dart: T06 double submit commits exactly once
+00:00 +11: C:/MAD/inc16/test/round_controller_test.dart: T09 acknowledged commit plus denied verification retains ID and retries only read
+00:00 +12: C:/MAD/inc16/test/round_controller_test.dart: T08 commit timeout retains operation lock until original settles
+00:00 +13: C:/MAD/inc16/test/round_controller_test.dart: T08 offline failure requires server absence before same-ID resubmit
+00:00 +14: C:/MAD/inc16/test/round_controller_test.dart: read timeout cannot overlap another server read
+00:00 +15: C:/MAD/inc16/test/round_controller_test.dart: T07 fresh controller retrieves original ID without questions or writes
+00:00 +16: C:/MAD/inc16/test/round_controller_test.dart: T12 unavailable and quota errors stay distinct and manually recover
+00:00 +17: C:/MAD/inc16/test/round_controller_test.dart: G01 collision preserves winning payload
+00:00 +18: C:/MAD/inc16/test/round_controller_test.dart: G03 stale commit after account switch cannot modify new screen
+00:00 +19: C:/MAD/inc16/test/round_controller_test.dart: G03 stale server read after account switch cannot update new result
+00:00 +20: C:/MAD/inc16/test/round_controller_test.dart: server validation rejects extra fields, unresolved timestamps, and numeric type drift
+00:00 +21: All tests passed!

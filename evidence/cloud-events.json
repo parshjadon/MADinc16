@@ -1,0 +1,130 @@
+[
+  {
+    "id": "T01",
+    "time": "2026-11-18T01:56:25.664755Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "none",
+    "actual": "Invalid login displayed an error; valid login authenticated intended test user A.",
+    "status": "PASS"
+  },
+  {
+    "id": "T02",
+    "time": "2026-11-18T01:56:26.947561Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "none",
+    "actual": "Exact URL returned 5 validated questions. Encoded: The%20Neanderthals%20were%20a%20direct%20ancestor%20of%20modern%20humans.; decoded: The Neanderthals were a direct ancestor of modern humans.",
+    "status": "PASS"
+  },
+  {
+    "id": "T04",
+    "time": "2026-11-18T01:56:33.944949Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "qDeGUO",
+    "actual": "Actual UI: True precedes False, Continue locked until selection, text/icon/color feedback, choices disabled after answer; five review entries and repeated selection guard produced 2/5.",
+    "status": "PASS"
+  },
+  {
+    "id": "T06",
+    "time": "2026-11-18T01:56:36.406185Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "qDeGUO",
+    "actual": "Double Submit produced one exact document with six fields, resolved timestamp and server-only confirmation.",
+    "status": "PASS"
+  },
+  {
+    "id": "T05",
+    "time": "2026-11-18T01:56:36.413415Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "7YRjxQ",
+    "actual": "All 5 answers reviewed; replay allocated a new ID and reset every selection.",
+    "status": "PASS"
+  },
+  {
+    "id": "T09",
+    "time": "2026-11-18T01:56:38.157021Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "taXr8f",
+    "actual": "REAL transaction acknowledged; labelled injected permission-denied read; retry verified the same REAL server record (3/5). No second document.",
+    "status": "PASS"
+  },
+  {
+    "id": "T08",
+    "time": "2026-11-18T01:56:38.664615Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "Zg7z4a",
+    "actual": "Network disabled before transaction; no false success. Reconnected, waited for original operation, reconciled original ID and recovered.",
+    "status": "PASS"
+  },
+  {
+    "id": "T12",
+    "time": "2026-11-18T01:56:39.134591Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "h6VSfj",
+    "actual": "Labelled unavailable injection had distinct message and one manual server-read retry; real commit and final read.",
+    "status": "PASS"
+  },
+  {
+    "id": "T12",
+    "time": "2026-11-18T01:56:39.529381Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "WWulmm",
+    "actual": "Labelled resourceExhausted injection had distinct message and one manual server-read retry; real commit and final read.",
+    "status": "PASS"
+  },
+  {
+    "id": "T10",
+    "time": "2026-11-18T01:56:42.325282Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "qDeGUO",
+    "actual": "Separate signed-in user B client was denied BOTH read and create under user A path by deployed rules.",
+    "status": "PASS"
+  },
+  {
+    "id": "T11",
+    "time": "2026-11-18T01:56:43.226552Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "qDeGUO",
+    "actual": "Deployed rules rejected score 6, an extra field, and update; original score and timestamp unchanged.",
+    "status": "PASS"
+  },
+  {
+    "id": "G01",
+    "time": "2026-11-18T01:56:45.188495Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "ZLnLDN",
+    "actual": "Two clients concurrently submitted 1 and 4 at same ID: collision:1, won:4; server winner 4/5.",
+    "status": "PASS"
+  },
+  {
+    "id": "G02",
+    "time": "2026-11-18T01:56:45.810361Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "deH39i",
+    "actual": "Concurrent independent clients returned their own exact IDs and scores: \u2026vE7eLy=0; \u2026deH39i=5.",
+    "status": "PASS"
+  },
+  {
+    "id": "G03",
+    "time": "2026-11-18T01:56:46.641153Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "none",
+    "actual": "Delayed delivery of actual user A server response after real sign-in as user B was discarded by generation/UID/ID guards.",
+    "status": "PASS"
+  },
+  {
+    "id": "T07",
+    "time": "2026-11-18T03:13:34.793506Z",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "qDeGUO",
+    "actual": "Prior process force-stopped; fresh Android process signed in as same A and retrieved original 2/5 using actual app Source.server path, without quiz or write.",
+    "status": "PASS"
+  },
+  {
+    "id": "T03",
+    "time": "2026-11-18T03:14:17.539365+00:00",
+    "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
+    "roundSuffix": "none",
+    "status": "PASS",
+    "actual": "Local deterministic tests rejected malformed percent/UTF-8, nonzero API codes, four/six results, invalid answer values and metadata; five-second gate prevented early HTTP retries. No cloud behavior is simulated as evidence."
+  }
+]
