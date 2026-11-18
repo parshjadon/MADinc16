@@ -16,9 +16,12 @@ Course portal deliverables
 
 Source and package commit: {commit}
 Tested application commit: {tested}
-Package commits add evidence and reproduction tools; application source is unchanged.
+Private Firebase configuration update: client keys are supplied from ignored
+build settings; original quiz/cloud test records remain historical observations.
 
-Release downloads: https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-complete
+Public report and notes: https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-private-config
+APK: local submission/ICA16_B_ParshJadon.apk only. Upload it to the private course
+portal. Do not upload the APK to GitHub: compiled clients contain Firebase keys.
 
 Verified: 21 local regressions pass; T01-T12 and G01-G03 records pass;
 real deployed Firebase transactions, exact server reads, ownership rejection,

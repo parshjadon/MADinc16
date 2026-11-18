@@ -282,6 +282,22 @@ for s in [
  'Question content attribution  Open Trivia Database  CC BY SA 4.0',
 ]:p(s)
 
+security_path=E/'security-remediation.json'
+if security_path.exists():
+    security=json.loads(security_path.read_text())
+    page();h('Private configuration and publishing safeguards')
+    p('The Firebase client configuration was moved to ignored private build settings at the project owner\'s request. Previously published client keys were revoked and replaced with keys restricted to the Firebase services used by this app. No billing was enabled. Public APK assets were removed because compiled Firebase clients contain their client key; the updated signed APK is provided locally for submission through the private course portal.')
+    p('Actual revalidation: '+security['verification']['result'])
+    p('Revalidated at '+security['verification']['time']+'  Original round suffix '+security['verification']['originalSuffix']+'  New verification round suffix '+security['verification']['newSuffix'])
+    table(['Safeguard','Verified outcome'],[
+      ('Source configuration','Dart reads key values from build settings; actual native/web configuration and private JSON are ignored by Git.'),
+      ('Exposed keys','Both previously published Firebase key resources were revoked; the two GitHub alerts were resolved as revoked.'),
+      ('Published history','Every published branch and tag was rewritten to remove literal key values. A full reachable-history secret scan passed.'),
+      ('Future publishing','Commit/push hooks, a CI history scan, public-document inspection and an APK upload prohibition are installed.'),
+      ('Private APK','Rebuilt with replacement configuration and retained only for private course-portal delivery.'),
+    ],[1.4,5.3])
+    p('The original T01–T12 and G01–G03 records retain their original test-run identifiers as provenance. The history rewrite changed Git commit hashes without changing those recorded observations. evidence/history-rewrite-map.json maps original hashes to sanitized commits; the development checkpoint table uses sanitized history. The configuration revalidation above is a separate, real deployed-cloud observation.')
+
 # A quiet page number supports navigating the evidence during an instructor check.
 footer=section.footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
 field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)

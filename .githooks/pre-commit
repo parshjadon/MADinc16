@@ -1,0 +1,2 @@
+#!/bin/sh
+node tool/scan_secrets.cjs --staged

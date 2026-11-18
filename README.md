@@ -2,7 +2,7 @@
 
 Graduate submission by **Parsh Jadon**, November 17, 2026.
 
-Download the signed APK and graduate Word report from the [complete submission release](https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-complete). The report includes all test records, actual app screenshots, the matching redacted Firebase-console screenshot, and independent deployed-record corroboration. Console evidence is retained in `evidence/firebase-console-redacted.png`; the read-only record export is in `evidence/server-console-export.json`.
+Download the updated Word report and submission notes from the [private-configuration release](https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-private-config). The signed APK is kept **locally** at `submission/ICA16_B_ParshJadon.apk` for private course-portal submission. It is not published to GitHub because compiled Firebase apps contain their client configuration. The report includes all test records, app screenshots, the matching redacted Firebase-console screenshot, and deployed-record corroboration.
 
 Flutter Android science quiz backed by real Firebase Authentication and Cloud Firestore. Exactly five medium Science & Nature boolean questions are requested from Open Trivia Database, URL-component decoded, validated, answered once, and reviewed. Completed scores use an immutable create-once transaction and an exact server-only confirmation read.
 
@@ -12,19 +12,25 @@ Prerequisites: Flutter 3.47.2 / Dart 3.13.2, Android SDK, JDK 17 or newer, an au
 
 ```powershell
 flutter pub get
-flutter run -d <android-device-id>
+node tool/install_hooks.cjs
+# Copy firebase.local.example.json to private/firebase.local.json and fill it privately.
+node tool/configure_firebase.cjs
+flutter run -d <android-device-id> --dart-define-from-file=private/firebase.local.json
 ```
 
-The Firebase client settings in `lib/firebase_options.dart` and `android/app/google-services.json` identify the project; they are not administrator credentials. They are safe to distribute only in conjunction with the deployed owner-only rules. Test-account passwords and release signing material are excluded from Git. Obtain instructor test access privately from the project owner; never paste credentials into an issue or the public repository.
+`lib/firebase_options.dart` contains project identifiers and environment lookups only. Actual API keys are in ignored `private/firebase.local.json`; `tool/configure_firebase.cjs` generates ignored native/web configuration locally. No literal keys, test passwords or release signing material may be committed or published. Obtain instructor test access through an approved private channel.
 
 ## Release APK
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tool/configure_signing.ps1
-flutter build apk --release --target-platform android-arm64,android-x64
+node tool/configure_firebase.cjs
+flutter build apk --release --target-platform android-arm64,android-x64 --dart-define-from-file=private/firebase.local.json
 ```
 
 The APK supports ARM64 phones and x86-64 Android emulators. A Windows Application Control policy blocks this machine's Flutter **32-bit ARM** AOT compiler; the 64-bit compilers build normally. This is a release build with a private RSA signing key, not a debug APK. Output: `build/app/outputs/flutter-apk/app-release.apk`. The final submission copy is named `ICA16_B_ParshJadon.apk`.
+
+Keep this APK out of public repositories and releases. Submit it directly through the private course portal. API-key values cannot be hidden from somebody who possesses a compiled Firebase client; authorization still depends on Firebase Authentication and deployed owner-only rules.
 
 On other systems, generate a keystore with `keytool` and create the ignored `android/key.properties` containing `storePassword`, `keyPassword`, `keyAlias`, and `storeFile`. Keep the key for future upgrades. The provided PowerShell helper uses the Android Studio JDK at `JAVA_HOME`, falling back to this machine's configured location.
 
@@ -89,12 +95,19 @@ $testedCommit = git rev-parse HEAD
 flutter drive --driver=test_driver/integration_driver.dart `
   --target=integration_test/cloud_test.dart -d <android-device-id> `
   --dart-define-from-file=private/test_accounts.json `
+  --dart-define-from-file=private/firebase.local.json `
   --dart-define=APP_COMMIT=$testedCommit
 ```
 
 `private/test_accounts.json` must contain `TEST_EMAIL_A`, `TEST_PASSWORD_A`, `TEST_EMAIL_B`, and `TEST_PASSWORD_B`. It is ignored. **Never distribute an integration-test APK:** test credentials are compiled into that temporary build. The submitted release is built separately without those defines. Build logs from integration commands are kept private because Gradle can echo base64 Dart defines.
 
 The live suite uses two independently initialized Firebase app/auth/Firestore clients. G01 submits conflicting scores at one ID, G02 submits unrelated IDs concurrently, and G03 delays delivery of an actual server response across an actual account change. Deployed rules reject user B's access, score 6, extra fields, and updates. Quota/permission fault injections are explicitly identified.
+
+## Credential prevention and history
+
+The exposed Firebase client keys were replaced with Firebase-only restricted keys kept in ignored private configuration. Previously published key values were revoked, public APK assets were removed, and all published branches/tags were sanitized. Original test-run commit identifiers remain historical provenance; `evidence/history-rewrite-map.json` maps them to sanitized history.
+
+Commit and push hooks run `tool/scan_secrets.cjs`. The scanner blocks literal Google/GitHub/AWS/Slack keys, private keys, credential assignments, generated credential files and public Android artifacts. GitHub Actions repeats the full-history check. Public release tooling scans document ZIP contents and never uploads APKs. Use `node --test tool/scan_secrets.test.cjs` to test these guards. The user's global Codex instructions retain this publishing preference for future work.
 
 ## Source map
 

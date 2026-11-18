@@ -7,12 +7,12 @@ async function main() {
   if (fs.existsSync('private/test_accounts.json')) {
     console.log('Private test accounts already exist.'); return;
   }
-  const config = JSON.parse(fs.readFileSync('web/firebase-config.json', 'utf8'));
+  const config = JSON.parse(fs.readFileSync('private/firebase.local.json', 'utf8'));
   const accounts = {};
   for (const label of ['A', 'B']) {
     const email = `ica16-${label.toLowerCase()}-${crypto.randomBytes(3).toString('hex')}@science-signal.example`;
     const password = crypto.randomBytes(24).toString('base64url') + 'aA9!';
-    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.apiKey}`, {
+    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.FIREBASE_WEB_API_KEY}`, {
       method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email, password, returnSecureToken: false}),
     });

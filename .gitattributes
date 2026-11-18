@@ -1,0 +1,4 @@
+.githooks/* text eol=lf
+*.cjs text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf

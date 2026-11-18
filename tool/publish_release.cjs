@@ -2,6 +2,7 @@
 const fs = require('node:fs');
 const cp = require('node:child_process');
 async function main() {
+  cp.execFileSync('node',['tool/scan_secrets.cjs','--all-refs'],{stdio:'inherit'});
   const raw = cp.execFileSync('git', ['credential','fill'], {
     input:'protocol=https\nhost=github.com\npath=parshjadon/MADinc16.git\n\n',
     encoding:'utf8', env:{...process.env,GIT_TERMINAL_PROMPT:'0',GCM_INTERACTIVE:'never'},
@@ -23,17 +24,18 @@ async function main() {
   if(process.argv[2]!=='publish') return;
   const commit=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
   let release;
-  const existing=await fetch('https://api.github.com/repos/parshjadon/MADinc16/releases/tags/ica16-b-complete',{headers});
+  const existing=await fetch('https://api.github.com/repos/parshjadon/MADinc16/releases/tags/ica16-b-private-config',{headers});
   if(existing.status===200) release=await existing.json();
   else if(existing.status===404) release=await request('https://api.github.com/repos/parshjadon/MADinc16/releases','POST',JSON.stringify({
-    tag_name:'ica16-b-complete',target_commitish:commit,name:'ICA16 Class B — Complete Graduate Submission',draft:false,prerelease:false,
-    body:'Complete graduate Science Signal package for Parsh Jadon: signed 64-bit Android release APK and evidence document, now including the matching redacted Firebase-console screenshot. Uses the free Firebase project inc06-f77f6. All 21 local tests and T01–T12/G01–G03 records pass. The report includes real cloud/server observations, failure recovery, concurrency diagrams, nine analyses, AI disclosure and reproduction instructions. No test passwords or signing keys are distributed. This release supersedes ica16-b-final.',
+    tag_name:'ica16-b-private-config',target_commitish:commit,name:'ICA16 Class B — Private Configuration Update',draft:false,prerelease:false,
+    body:'Updated graduate evidence report and submission notes. Literal Firebase keys have been removed from source/history and replaced with ignored private build settings. Previously exposed keys were revoked. The tested release APK is kept locally for private course-portal submission because compiled Firebase apps contain their client configuration. No APK, keys, test passwords or signing credentials are distributed in this release.',
   }),{'Content-Type':'application/json'});
   else throw Error(`Release lookup failed: ${existing.status}`);
   const uploaded=[];
-  for(const name of ['ICA16_B_ParshJadon.apk','ICA16_B_ParshJadon.docx','SUBMISSION.txt']) {
+  for(const name of ['ICA16_B_ParshJadon.docx','SUBMISSION.txt']) {
     if(release.assets.some(a=>a.name===name)) throw Error(`Release already contains ${name}; refusing to replace an existing asset.`);
     const content=fs.readFileSync(`submission/${name}`);
+    require('./scan_secrets.cjs').inspectPublicArtifact(`submission/${name}`);
     const asset=await request(`https://uploads.github.com/repos/parshjadon/MADinc16/releases/${release.id}/assets?name=${encodeURIComponent(name)}`,'POST',content,{'Content-Type':'application/octet-stream'});
     uploaded.push({name:asset.name,url:asset.browser_download_url,size:asset.size});
   }

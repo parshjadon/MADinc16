@@ -1,5 +1,16 @@
 # Miscellaneous
 private/
+**/google-services.json
+**/firebase-config.json
+**/GoogleService-Info.plist
+.env
+.env.*
+!.env.example
+!.env.template
+*.p12
+*.pfx
+*.pem
+*.key
 tool/sdk/
 submission/
 evidence/raw/
