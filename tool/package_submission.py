@@ -18,7 +18,7 @@ Source and package commit: {commit}
 Tested application commit: {tested}
 Package commits add evidence and reproduction tools; application source is unchanged.
 
-Release downloads: https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-final
+Release downloads: https://github.com/parshjadon/MADinc16/releases/tag/ica16-b-complete
 
 Verified: 21 local regressions pass; T01-T12 and G01-G03 records pass;
 real deployed Firebase transactions, exact server reads, ownership rejection,
@@ -27,10 +27,10 @@ Release APK signature verified; installed and cold-launched on Android API 35.
 APK is a signed release for ARM64 and x86-64 Android devices.
 Firebase project inc06-f77f6 uses the free tier. No billing was enabled.
 
-Outstanding evidence item: a separate Firebase-console screenshot has not been
-captured. The report includes actual app screenshots and a redacted independent
-Firestore REST record export. Add the console screenshot before claiming the
-assignment's evidence checklist is fully complete.
+Evidence package: the report includes actual app screenshots, the matching
+redacted Firebase-console screenshot, all 15 required test records, and the
+independent Firestore REST record export. The console screenshot confirms the
+same qDeGUO record used for the 2/5 write and restart retrieval.
 
 SHA256
 '''+''.join(f'{value}  {name}\n' for name,value in hashes.items())
@@ -45,6 +45,6 @@ for label in ['A','B']:
 private+=f'Restart retrieval ID for user A: {restart["TEST_RESTART_ID"]}\nExpected score: 2/5\n'
 private+='\nAn unused empty free project, science-signal-b-parsh-2026, was created before the specified project link arrived. The app does not use it. No billing was enabled on it.\n'
 (OUT/'PRIVATE_TEST_ACCESS.txt').write_text(private,encoding='utf-8')
-manifest={'testedApplicationCommit':tested,'packageCommit':commit,'version':'1.0.0+1','apkArchitectures':['arm64-v8a','x86_64'],'artifacts':hashes,'consoleScreenshotIncluded':False,'localTestsPassed':21,'requiredTestRecordsPassed':15}
+manifest={'testedApplicationCommit':tested,'packageCommit':commit,'version':'1.0.0+1','apkArchitectures':['arm64-v8a','x86_64'],'artifacts':hashes,'consoleScreenshotIncluded':True,'localTestsPassed':21,'requiredTestRecordsPassed':15}
 (OUT/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 print('Prepared three portal deliverables and a separate private account handoff. Private values were not printed.')

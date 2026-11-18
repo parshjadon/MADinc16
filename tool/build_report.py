@@ -197,6 +197,13 @@ picture('T07-restarted-server-retrieval.png',3.1)
 caption('T07 after process restart: the same user retrieves round …qDeGUO, score 2/5, resolved timestamp, server source and no pending writes. No quiz review or new write is used.')
 p('Reproduction: copy the full ID using Copy round ID, force-stop and reopen while online, authenticate as the same authorized user, expand Retrieve a previous result, paste the ID, and choose Read exact server record. Account access is supplied only through an approved private channel. Passwords are not included in this report or public repository.')
 
+page();h('Firebase console proof')
+p('The supplied Firebase console screenshot shows the selected deployed attempt ending qDeGUO in the default database. Its six fields match the T06 write and T07 restart retrieval: category 17, score 2, five questions, schema version 1, variant B, and a resolved submission timestamp. The console displays November 17 at 7:56:33 PM; the matching app server read reports 2026-11-18T01:56:33.958Z.')
+picture('firebase-console-redacted.png',6.7)
+caption('User-provided Firebase console screenshot. Identifier regions are redacted to suffixes; attempt field values are unchanged. The Spark plan indicator is visible at lower left.')
+picture('firebase-console-fields.png',3.9)
+caption('Detail of the selected attempt. The timezone tail was truncated in the original screenshot; the precise UTC timestamp is independently shown in the app and server export. The empty parent user document does not affect its attempts subcollection.')
+
 page();h('Reproducible test records')
 p('Times are UTC and correspond to November 17, 2026 in America/Chicago. Every record includes precondition, action, expected and actual outcome, status, commit, redacted round suffix, and an evidence reference. T03 uses controlled local validation inputs; cloud-required tests use deployed Firebase. Evidence JSON retains machine-readable details.')
 for i,t in enumerate(records):

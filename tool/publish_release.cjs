@@ -23,11 +23,11 @@ async function main() {
   if(process.argv[2]!=='publish') return;
   const commit=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
   let release;
-  const existing=await fetch('https://api.github.com/repos/parshjadon/MADinc16/releases/tags/ica16-b-final',{headers});
+  const existing=await fetch('https://api.github.com/repos/parshjadon/MADinc16/releases/tags/ica16-b-complete',{headers});
   if(existing.status===200) release=await existing.json();
   else if(existing.status===404) release=await request('https://api.github.com/repos/parshjadon/MADinc16/releases','POST',JSON.stringify({
-    tag_name:'ica16-b-final',target_commitish:commit,name:'ICA16 Class B — Parsh Jadon',draft:false,prerelease:false,
-    body:'Graduate Science Signal submission: signed 64-bit Android release APK and evidence document. Uses the free Firebase project inc06-f77f6. Deployed-cloud tests cover immutable transactions, same-ID verification recovery, ownership rules and G01–G03 concurrency. See the README and evidence document for actual observations, AI disclosure and reproduction instructions. A separate Firebase-console screenshot remains outstanding; actual app screenshots and an independent Firestore record export are included. No test passwords or signing keys are distributed.',
+    tag_name:'ica16-b-complete',target_commitish:commit,name:'ICA16 Class B — Complete Graduate Submission',draft:false,prerelease:false,
+    body:'Complete graduate Science Signal package for Parsh Jadon: signed 64-bit Android release APK and evidence document, now including the matching redacted Firebase-console screenshot. Uses the free Firebase project inc06-f77f6. All 21 local tests and T01–T12/G01–G03 records pass. The report includes real cloud/server observations, failure recovery, concurrency diagrams, nine analyses, AI disclosure and reproduction instructions. No test passwords or signing keys are distributed. This release supersedes ica16-b-final.',
   }),{'Content-Type':'application/json'});
   else throw Error(`Release lookup failed: ${existing.status}`);
   const uploaded=[];

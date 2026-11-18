@@ -69,7 +69,7 @@
     "timestamp": "2026-11-18T01:56:36.406185Z",
     "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
     "roundSuffix": "qDeGUO",
-    "evidence": "cloud-events.json; integration_test/cloud_test.dart"
+    "evidence": "cloud-events.json; integration_test/cloud_test.dart; firebase-console-redacted.png; console-evidence.json"
   },
   {
     "id": "T07",
@@ -81,7 +81,7 @@
     "timestamp": "2026-11-18T03:13:34.793506Z",
     "commit": "055081c08220065c8937ee965a7d0f0fb2c5612c",
     "roundSuffix": "qDeGUO",
-    "evidence": "cloud-events.json; integration_test/restart_test.dart"
+    "evidence": "cloud-events.json; integration_test/restart_test.dart; firebase-console-redacted.png; console-evidence.json"
   },
   {
     "id": "T08",

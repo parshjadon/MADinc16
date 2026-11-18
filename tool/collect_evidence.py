@@ -46,6 +46,10 @@ for id in list(spec):
       timestamp=' / '.join(e['time'] for e in observed),
       commit=observed[-1]['commit'],roundSuffix=' / '.join(e['roundSuffix'] for e in observed),
       evidence=('unit-tests.txt; test/quiz_test.dart' if id=='T03' else 'cloud-events.json; integration_test/'+('restart_test.dart' if id=='T07' else 'cloud_test.dart'))))
+if (ROOT/'evidence/firebase-console-redacted.png').exists():
+    for record in records:
+        if record['id'] in ['T06','T07']:
+            record['evidence'] += '; firebase-console-redacted.png; console-evidence.json'
 (ROOT/'evidence/test-records.json').write_text(json.dumps(records,indent=2),encoding='utf-8')
 (ROOT/'evidence/cloud-events.json').write_text(json.dumps(data,indent=2),encoding='utf-8')
 for name in ['unit-tests.txt','failed-first-retrieval.txt']:

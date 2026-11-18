@@ -1,0 +1,23 @@
+{
+  "source": "User-provided Firebase console screenshot",
+  "sourceFilename": "Screenshot 2026-11-17 214755.png",
+  "sourceSha256": "35112a7faa7af362a36afdd06a1fe18f07ecc5e125b734e5f77edb34d34a5298",
+  "redactions": "Only UID and document identifier regions; six attempt fields unchanged.",
+  "projectDisplayName": "inc06",
+  "database": "(default)",
+  "testReferences": [
+    "T06",
+    "T07"
+  ],
+  "uidSuffix": "IJfBG2",
+  "roundSuffix": "qDeGUO",
+  "observedFields": {
+    "categoryId": 17,
+    "correctCount": 2,
+    "questionCount": 5,
+    "schemaVersion": 1,
+    "variant": "B",
+    "submittedAt": "Console shows November 17, 2026 at 7:56:33 PM; timezone tail truncated in supplied screenshot."
+  },
+  "matchingServerTimestamp": "2026-11-18T01:56:33.958Z"
+}
