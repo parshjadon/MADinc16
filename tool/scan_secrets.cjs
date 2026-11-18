@@ -23,7 +23,10 @@ function prohibitedPath(name) {
 function scan(mode) {
   const failures=[];
   if (mode==='--all-refs') {
-    const objects=git(['rev-list','--objects','--all']).trim().split('\n');
+    // Only Git branches/tags/remote branches are publishable. Local agent snapshot
+    // trees under refs/codex are private tooling state, not repository history.
+    const refs=git(['for-each-ref','--format=%(refname)','refs/heads','refs/tags','refs/remotes']).trim().split('\n').filter(Boolean);
+    const objects=git(['rev-list','--objects',...refs]).trim().split('\n');
     const seen=new Set();
     for (const line of objects) {
       const space=line.indexOf(' '); if (space<0) continue;
