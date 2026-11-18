@@ -220,8 +220,9 @@ class RoundController extends ChangeNotifier {
     if (uid == null ||
         roundId == null ||
         operationActive ||
-        !reconciliationRequired)
+        !reconciliationRequired) {
       return;
+    }
     await _readOriginal();
   }
 

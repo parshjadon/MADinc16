@@ -58,7 +58,8 @@ Future<void> main() async {
 }
 
 class ScienceSignalApp extends StatelessWidget {
-  const ScienceSignalApp({super.key});
+  const ScienceSignalApp({super.key, this.controller});
+  final RoundController? controller;
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Science Signal',
@@ -105,12 +106,13 @@ class ScienceSignalApp extends StatelessWidget {
         ),
       ),
     ),
-    home: const SignalHome(),
+    home: SignalHome(roundOverride: controller),
   );
 }
 
 class SignalHome extends StatefulWidget {
-  const SignalHome({super.key});
+  const SignalHome({super.key, this.roundOverride});
+  final RoundController? roundOverride;
   @override
   State<SignalHome> createState() => _SignalHomeState();
 }
@@ -134,7 +136,7 @@ class _SignalHomeState extends State<SignalHome> {
       FirebaseFirestore.instance,
       FirebaseAuth.instance,
     );
-    round = RoundController(OpenTriviaSource(), store);
+    round = widget.roundOverride ?? RoundController(OpenTriviaSource(), store);
     round.identityChanged(FirebaseAuth.instance.currentUser?.uid);
     authChanges = FirebaseAuth.instance.authStateChanges().listen(
       (user) => round.identityChanged(user?.uid),
@@ -142,8 +144,9 @@ class _SignalHomeState extends State<SignalHome> {
     ticker = Timer.periodic(const Duration(seconds: 1), (_) {
       if (mounted &&
           (round.questionsSource.retryAfter > Duration.zero ||
-              round.phase == RoundPhase.requestError))
+              round.phase == RoundPhase.requestError)) {
         setState(() {});
+      }
     });
   }
 
@@ -151,7 +154,7 @@ class _SignalHomeState extends State<SignalHome> {
   void dispose() {
     ticker?.cancel();
     authChanges?.cancel();
-    round.dispose();
+    if (widget.roundOverride == null) round.dispose();
     email.dispose();
     password.dispose();
     retrieveId.dispose();
@@ -220,7 +223,7 @@ class _SignalHomeState extends State<SignalHome> {
                       try {
                         await FirebaseAuth.instance.signOut();
                       } catch (_) {
-                        if (context.mounted)
+                        if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
@@ -228,6 +231,7 @@ class _SignalHomeState extends State<SignalHome> {
                               ),
                             ),
                           );
+                        }
                       }
                     }
                   : null,
@@ -720,7 +724,7 @@ class _SignalHomeState extends State<SignalHome> {
           TextButton.icon(
             onPressed: () async {
               await Clipboard.setData(ClipboardData(text: round.roundId!));
-              if (mounted)
+              if (mounted) {
                 ScaffoldMessenger.of(this.context).showSnackBar(
                   const SnackBar(
                     content: Text(
@@ -728,6 +732,7 @@ class _SignalHomeState extends State<SignalHome> {
                     ),
                   ),
                 );
+              }
             },
             icon: const Icon(Icons.copy_outlined, size: 16),
             label: const Text('Copy round ID'),
