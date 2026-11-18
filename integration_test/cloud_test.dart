@@ -112,6 +112,9 @@ void main() {
       find.byKey(const Key('password')),
       'deliberately-incorrect-password',
     );
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.ensureVisible(find.byKey(const Key('signIn')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('signIn')));
     await tester.pumpAndSettle();
     await tester.runAsync(() async {
@@ -132,6 +135,9 @@ void main() {
     await binding.takeScreenshot('T01-auth-error');
     await tester.enterText(find.byKey(const Key('email')), emailA);
     await tester.enterText(find.byKey(const Key('password')), passwordA);
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.ensureVisible(find.byKey(const Key('signIn')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('signIn')));
     await tester.pumpAndSettle();
     await tester.runAsync(() async {
@@ -159,11 +165,41 @@ void main() {
       'Exact URL returned 5 validated questions. Encoded: ${questions.first.encodedPrompt}; decoded: ${questions.first.prompt}',
     );
     final repo = FirestoreAttemptStore(db, auth);
+    final playing = RoundController(LoadedQuestions(questions), repo)
+      ..identityChanged(uidA);
+    await playing.startRound();
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpWidget(ScienceSignalApp(controller: playing));
+    await tester.pumpAndSettle();
+    expect(
+      tester.getTopLeft(find.byKey(const Key('answerTrue'))).dx,
+      lessThan(tester.getTopLeft(find.byKey(const Key('answerFalse'))).dx),
+    );
+    expect(
+      tester.widget<FilledButton>(find.byKey(const Key('continue'))).onPressed,
+      isNull,
+    );
+    for (var i = 0; i < 5; i++) {
+      final answer = i < 2 ? questions[i].correct : !questions[i].correct;
+      final button = find.byKey(Key(answer ? 'answerTrue' : 'answerFalse'));
+      await tester.ensureVisible(button);
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+      expect(tester.widget<OutlinedButton>(button).onPressed, isNull);
+      expect(find.byKey(const Key('answerFeedback')), findsOneWidget);
+      if (i == 0) await binding.takeScreenshot('T04-fixed-choices-feedback');
+      await tester.ensureVisible(find.byKey(const Key('continue')));
+      await tester.tap(find.byKey(const Key('continue')));
+      await tester.pumpAndSettle();
+    }
+    expect(playing.phase, RoundPhase.readyToSubmit);
+    expect(playing.score, 2);
+    await tester.pumpWidget(const SizedBox.shrink());
     final round = await finishRound(uidA, repo, questions);
     expect(round.selections, hasLength(5));
     record(
       'T04',
-      'Correct, wrong, and repeated answers produced exactly 2/5; fixed choices covered by widget tests.',
+      'Actual UI: True precedes False, Continue locked until selection, text/icon/color feedback, choices disabled after answer; five review entries and repeated selection guard produced 2/5.',
       roundId: round.roundId,
     );
     final id = round.roundId!;
@@ -184,6 +220,24 @@ void main() {
     );
     // This ID is returned to the driver privately for the genuine restart test.
     binding.reportData!['restartId'] = id;
+    binding.reportData!['serverProof'] = {
+      'projectId': db.app.options.projectId,
+      'database': '(default)',
+      'uidSuffix': uidA.substring(uidA.length - 6),
+      'roundSuffix': id.substring(id.length - 6),
+      'schemaVersion': original.data()!['schemaVersion'],
+      'variant': original.data()!['variant'],
+      'categoryId': original.data()!['categoryId'],
+      'questionCount': original.data()!['questionCount'],
+      'correctCount': original.data()!['correctCount'],
+      'submittedAt': (original.data()!['submittedAt'] as Timestamp)
+          .toDate()
+          .toUtc()
+          .toIso8601String(),
+      'source': 'server',
+      'isFromCache': original.metadata.isFromCache,
+      'hasPendingWrites': original.metadata.hasPendingWrites,
+    };
 
     await round.startRound();
     expect(round.roundId, isNot(id));

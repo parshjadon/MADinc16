@@ -265,7 +265,7 @@ class _SignalHomeState extends State<SignalHome> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Authenticated · ${round.uid}',
+                            'Authenticated · UID …${round.uid!.substring(round.uid!.length > 6 ? round.uid!.length - 6 : 0)}',
                             key: const Key('identity'),
                             style: const TextStyle(fontSize: 11),
                             overflow: TextOverflow.ellipsis,
@@ -717,7 +717,7 @@ class _SignalHomeState extends State<SignalHome> {
             ),
           const SizedBox(height: 12),
           SelectableText(
-            'Round ID: ${round.roundId}',
+            'Round ID: …${round.suffix}',
             key: const Key('roundId'),
             style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
           ),
