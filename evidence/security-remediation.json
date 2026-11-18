@@ -1,0 +1,30 @@
+{
+  "verification": {
+    "time": "2026-11-18T04:10:57.437383Z",
+    "originalSuffix": "qDeGUO",
+    "newSuffix": "yN2ixF",
+    "result": "Replacement private configuration authenticated user A, read original 2/5 record from server, committed and server-verified one new immutable 2/5 record.",
+    "status": "PASS"
+  },
+  "revoked": "2026-11-18T04:15:19.055Z",
+  "githubVerification": {
+    "time": "2026-11-18T04:17:22.838Z",
+    "alerts": [
+      {
+        "number": 2,
+        "state": "resolved",
+        "resolution": "revoked"
+      },
+      {
+        "number": 1,
+        "state": "resolved",
+        "resolution": "revoked"
+      }
+    ],
+    "publicAndroidAssets": 0,
+    "oldKeyAuthenticationRejected": true
+  },
+  "privateApkSha256": "f83eb3b5c02fafd4f328a1e7ff56dae1901e10359b11de9bbd816f9c24927753",
+  "replacementConfiguration": "Ignored private Firebase-only API settings; no key values in this record.",
+  "globalPreferenceSaved": true
+}

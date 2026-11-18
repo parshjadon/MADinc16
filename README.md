@@ -24,8 +24,7 @@ flutter run -d <android-device-id> --dart-define-from-file=private/firebase.loca
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tool/configure_signing.ps1
-node tool/configure_firebase.cjs
-flutter build apk --release --target-platform android-arm64,android-x64 --dart-define-from-file=private/firebase.local.json
+powershell -ExecutionPolicy Bypass -File tool/build_private_apk.ps1
 ```
 
 The APK supports ARM64 phones and x86-64 Android emulators. A Windows Application Control policy blocks this machine's Flutter **32-bit ARM** AOT compiler; the 64-bit compilers build normally. This is a release build with a private RSA signing key, not a debug APK. Output: `build/app/outputs/flutter-apk/app-release.apk`. The final submission copy is named `ICA16_B_ParshJadon.apk`.

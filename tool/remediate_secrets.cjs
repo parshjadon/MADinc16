@@ -116,6 +116,24 @@ async function main() {
       });
       console.log('Resolved revoked-key alert #'+alert.number+'.');
     }
+  } else if (command === 'verify-remediation') {
+    const alerts=await request('github','https://api.github.com/repos/'+repo+'/secret-scanning/alerts?per_page=100');
+    const oldValues=JSON.parse(fs.readFileSync('private/security/exposed-values.json','utf8'));
+    const accounts=JSON.parse(fs.readFileSync('private/test_accounts.json','utf8'));
+    for (let index=0; index<oldValues.length; index++) {
+      const response=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+encodeURIComponent(oldValues[index]),{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:accounts.TEST_EMAIL_A,password:accounts.TEST_PASSWORD_A,returnSecureToken:true}),
+      });
+      if (response.ok) throw Error('A revoked key still authenticates during provider propagation; verify again before finalizing.');
+      console.log('Previously exposed key '+(index+1)+': rejected by authentication service.');
+    }
+    const released=await request('github','https://api.github.com/repos/'+repo+'/releases?per_page=100');
+    if (released.some(r=>r.assets.some(a=>/\.(?:apk|aab)$/i.test(a.name)))) throw Error('A public APK asset remains.');
+    if (alerts.some(a=>a.state==='open')) throw Error('GitHub still has open secret alerts.');
+    const summary={time:new Date().toISOString(),alerts:alerts.map(a=>({number:a.number,state:a.state,resolution:a.resolution})),publicAndroidAssets:0,oldKeyAuthenticationRejected:true};
+    fs.writeFileSync('private/security/final-verification.json',JSON.stringify(summary,null,2));
+    console.log('GitHub has no open secret alerts and no public Android artifacts.');
   } else throw Error('Unknown remediation command.');
 }
 main().catch(error=>{console.error(error.message); process.exitCode=1;});

@@ -1,0 +1,12 @@
+{
+  "reason": "Remove literal Firebase client keys from published history. Original test identifiers are retained as provenance.",
+  "commits": {
+    "055081c08220065c8937ee965a7d0f0fb2c5612c": "bc004e08cd7e03b029207b546192cfc04bbd834b",
+    "0d7131c71790b41459b3d2eb2fd778da3007aa9c": "1d8139b9d12c833bfaa73599755ceb5c09219468",
+    "62effbab3c052889f4f11de54129ccce7076b5d7": "954dbc26524573e80dfdfa0dc2708f917fd17831",
+    "6f144e08bbff7acc185ac8a3253f5dd8b55c8381": "2e0d9c6c91443a36d9eaa645322e7a3ad949144d",
+    "b4c252a1391d5cb5f401d0184ee0fd50da0450d2": "7e87c005355ef55787595e205452d2bb5f0f55e8",
+    "d1358c75b0136acb8b6c8efba72d59ec14af4e76": "4ccb52c6486d823501de190b48225a5deb1b7976",
+    "e99a60236c01348ee21ce0b389b14f4b0ed79b3d": "1dda9208f201ac078b5eb578afa5b79718d6a45d"
+  }
+}
